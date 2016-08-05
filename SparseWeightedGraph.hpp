@@ -8,6 +8,7 @@
 #include <cstdlib>
 #include <fstream>
 #include "nausparse.h"
+#include "naututil.h"
 
 class SparseWeightedGraph
 {
@@ -28,7 +29,7 @@ class SparseWeightedGraph
 		std::vector<size_t> nauty_v;	// ith element stores where vertex i's list of adjacencies start in nauty_e
 		bool addArc(int i, int j, int m);	// mutator for adding arc (i,j) of weight m
 		bool delArc(int i, int j);	// mutator for deleting arc (i,j)
-		bool chargeArcWeight(int i, int j, int m);	// mutator for changing weight of arc (i,j) to m
+		bool changeArcWeight(int i, int j, int m);	// mutator for changing weight of arc (i,j) to m
 		bool updateW();	// builds weighted nauty graph
 		bool updateUW();	//builds unweighted nauty graph
 	public:

@@ -136,7 +136,7 @@ bool SparseWeightedGraph::updateW()
 	nauty_nde = 2 * nde;	// number of nauty edges
 	nauty_d.resize(nauty_nv,0);	// initialize to 0, unused
 	nauty_e.resize(nauty_nde,0);
-	nauty_v.resize(nauty_v,0);
+	nauty_v.resize(nauty_nv,0);
 	lab.resize(nauty_nv,0);
 	ptn.resize(nauty_nv,0);
 	orbits.resize(nauty_nv,0);
