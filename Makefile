@@ -15,11 +15,11 @@ NI	= -I$(NPATH) $(NPATH)nauty.a
 SWG 	= SparseWeightedGraph.cpp $(NI) -w 
 SS	= SparseWeightedGraph.cpp SparseWeightedGraph.hpp
 
-dumb : dumb.cpp $(SS)
-	$(CPP) --std=c++11 $(SWG) dumb.cpp -o dumb -w
+dumbexe : dumb.cpp $(SS)
+	$(CPP) --std=c++11 $(SWG) dumb.cpp -o dumbexe -w
 
-trial : Trial.cpp $(SS)
-	$(CPP) --std=c++11 $(SWG) Trial.cpp -o trial -w
+trialexe : Trial.cpp $(SS)
+	$(CPP) --std=c++11 $(SWG) Trial.cpp -o trialexe -w
 
-findNumberAut : findNumberAut.cpp $(SS)
-	$(CPP) --std=c++11 $(SWG) findNumberAut.cpp -o findNumberAut -w
+findNumberAutexe : findNumberAut.cpp $(SS)
+	$(CPP) --std=c++11 $(SWG) findNumberAut.cpp -o findNumberAutexe -w
