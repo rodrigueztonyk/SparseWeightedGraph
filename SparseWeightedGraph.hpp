@@ -11,7 +11,7 @@
 #include <assert.h>
 #include "nausparse.h"
 #include "naututil.h"
-
+#include <time.h>
 
 class SparseWeightedGraph
 {
