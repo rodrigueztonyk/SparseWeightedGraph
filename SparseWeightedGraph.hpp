@@ -51,7 +51,7 @@ class SparseWeightedGraph
 		bool print();	// outputs all variables to stdout
 		bool printOrbits(bool _print = false);	// prints orbits from nauty to stdout. if _print is true will print all orbits (including trivial), otherwise just prints nontrivial orbits
 		int numVertices() const {return nv;}	// accessor for nv
-		int numEdges() const {return nde;}	// accessor for nde
+		int numEdges();	// accessor for nde
 		int deg(int i) const {return d[i];}	// accessor for d[i]
 		bool isEdge(int i, int j);	// is (i.j) an edge
 		int getWeight(int i, int j);	// gets weight of edge (i,j)

@@ -435,6 +435,13 @@ bool SparseWeightedGraph::changeWeight(int i, int j, int m)
 	}
 }
 
+// accessor for number of edges
+int SparseWeightedGraph::numEdges()
+{
+	if(directed) return nde;
+	return nde/2;
+}
+
 // prints graph in standard format to os
 std::ostream & operator<<(std::ostream & os, const SparseWeightedGraph & swg)
 {

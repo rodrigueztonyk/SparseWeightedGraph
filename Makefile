@@ -17,3 +17,9 @@ SS	= SparseWeightedGraph.cpp SparseWeightedGraph.hpp
 
 dumb : dumb.cpp $(SS)
 	$(CPP) --std=c++11 $(SWG) dumb.cpp -o dumb -w
+
+trial : Trial.cpp $(SS)
+	$(CPP) --std=c++11 $(SWG) Trial.cpp -o trial -w
+
+findNumberAut : findNumberAut.cpp $(SS)
+	$(CPP) --std=c++11 $(SWG) findNumberAut.cpp -o findNumberAut -w
