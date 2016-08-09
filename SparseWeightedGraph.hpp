@@ -7,8 +7,11 @@
 #include <cstdio>
 #include <cstdlib>
 #include <fstream>
+#include <sstream>
+#include <assert.h>
 #include "nausparse.h"
 #include "naututil.h"
+
 
 class SparseWeightedGraph
 {
