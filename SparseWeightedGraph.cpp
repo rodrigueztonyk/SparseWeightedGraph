@@ -9,6 +9,7 @@ SparseWeightedGraph::SparseWeightedGraph(int _nv, bool _directed)
 	nv = _nv;	// set number of vertices
 	nde = 0;	// initialize to 0
 	directed = _directed;
+	grpsize = 1;	// initialize
 	d.resize(nv, 0);	// make d large enough to hold all vertices, initialize to 0
 	v.resize(nv, -1);	// make v large enough to hold all vertices, initialize to -1
 
@@ -29,7 +30,8 @@ SparseWeightedGraph::SparseWeightedGraph(const SparseWeightedGraph & swg)
 	directed = swg.directed;
 	nauty_nv = swg.nauty_nv;
 	nauty_nde = swg.nauty_nde;
-	
+	grpsize = 1;	// initialize
+
 	// use std::vector::operator=
 	d = swg.d;
 	e = swg.e;
@@ -61,6 +63,7 @@ SparseWeightedGraph::SparseWeightedGraph(FILE * f)
 						exit(EXIT_FAILURE);
 					}
 					nde = 0;
+					grpsize = 1;
 					d.resize(nv, 0);	// initialize degrees to 0
 					v.resize(nv, -1);	// initialize vs to -1
 					if (directed) {
@@ -127,6 +130,7 @@ SparseWeightedGraph & SparseWeightedGraph::operator=(const SparseWeightedGraph &
 	nauty_e = swg.nauty_e;
 	nauty_v = swg.nauty_v;
 	orbits = swg.orbits;
+	grpsize = swg.grpsize;
 }
 
 // Builds weighted nauty graph
@@ -253,8 +257,57 @@ bool SparseWeightedGraph::callNauty(bool _print, bool _trivial)
 
 	sparsenauty(&sg,&lab[0],&ptn[0],&orbits[0],&options,&stats,NULL);
 	// if (_print) printOrbits(_trivial);	// can uncomment when printOrbits is actually added
+
+	// determine size of automorphism group
+	grpsize = 1;
+	grpsize *= stats.grpsize1;
+	grpsize *= std::pow(10,stats.grpsize2);
+
+	if (_print) {
+		printf("Automorphism group size = ");
+		writegroupsize(stdout,stats.grpsize1,stats.grpsize2);
+		printf("\n");
+		std::vector< std::vector< int > > orbs;
+		orbs.resize(nv);
+
+		for (int i = 0; i < nv; i++) {
+			orbs[orbits[i]].push_back(i);
+		}
+
+		/*
+		for (int i = 0; i < nv; i++) {
+			for (int j = 0; j < nv; j++) {
+				if (orbits[j] == i) orbs[i].push_back(j);
+			}
+		}
+		*/
+
+		printf("Orbits :\n");
+
+		if (_trivial) { // print trivial orbits
+			for (int i = 0; i < orbs.size(); i++) {
+				if (orbs[i].size() > 0) printf("(");
+				for (int j = 0; j < orbs[i].size(); j++) {
+					printf(" %d",orbs[i][j]);
+				}
+				if (orbs[i].size() > 0) printf(" )\n");
+			}
+		} else { // don't print trivial orbits
+			for (int i = 0; i < orbs.size(); i++) {
+				if (orbs[i].size() > 1) {
+					printf("(");
+					for (int j = 0; j < orbs[i].size(); j++) {
+						printf(" %d",orbs[i][j]);
+					}
+				printf(" )\n");
+				}
+			}
+		}
+
+	}
+
 	return true;
-}
+}	
 
 // prints all variables
 bool SparseWeightedGraph::print()

@@ -12,6 +12,7 @@
 #include "nausparse.h"
 #include "naututil.h"
 #include <time.h>
+#include <cmath>
 
 class SparseWeightedGraph
 {
@@ -19,6 +20,7 @@ class SparseWeightedGraph
 		bool directed;  // if graph is directed or undirected
 		int nv;		// number of vertices
 		int nde;	// number of edges
+		double grpsize;	// size of automorphism group
 		std::vector<int> d;	// array of degrees. d[i] stores degree of vertex i
 		std::vector<int> e;	// list of directed edges
 		std::vector<int> w;	// list of weights of edges
@@ -43,8 +45,11 @@ class SparseWeightedGraph
 		SparseWeightedGraph(FILE * fp);	// constructs graph from file. Must be in modified DIMACS format
 		virtual ~SparseWeightedGraph();	// destructor. virtual in case needed as base class
 		SparseWeightedGraph & operator=(const SparseWeightedGraph &);	// copy assignment operator
-		bool callNauty(bool _print = false, bool _trivial = false);	// used to call nauty. 
+		bool callNauty(bool _print = false, bool _trivial = false);	// used to call nauty.
 		// callNauty has two inputs, _print and _trivial. _print = true will print nauty output to stdout. _trivial = true will print trivial orbits
+
+		double groupSize() const {return grpsize;}	// accessor for size of group
+
 		bool callNautyForNumber(FILE * _fp);	// used to call nauty to print nauty output to file _fp
 		std::vector<int> orbits;	// nauty orbits
 

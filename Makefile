@@ -23,3 +23,6 @@ trialexe : Trial.cpp $(SS)
 
 findNumberAutexe : findNumberAut.cpp $(SS)
 	$(CPP) --std=c++11 $(SWG) findNumberAut.cpp -o findNumberAutexe -w
+
+findNumberAutProcessedexe : findNumberAutProcessed.cpp $(SS)
+	$(CPP) --std=c++11 $(SWG) findNumberAutProcessed.cpp -o findNumberAutProcessedexe
